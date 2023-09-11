@@ -59,6 +59,18 @@ class CoinGeckoAPI:
         api_url = '{0}ping'.format(self.api_base_url)
         return self.__request(api_url)
 
+    # ---------- ENTER-EXIT ----------#
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        self.close()
+
+    def close(self):
+        """Close the session"""
+
+        return self.session.close()
+
     # ---------- SIMPLE ----------#
     @list_args_to_comma_separated
     def get_price(self, ids, vs_currencies, **kwargs):
